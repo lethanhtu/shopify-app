@@ -1,7 +1,7 @@
 slider_install:
     path: /slider/install
-    controller: App\AppSliderController::install
+    controller: App\Controller\AppSliderController::install
 
 slider_auth:
   path: /slider/auth
-  controller: App\AppSliderController::auth
+  controller: App\Controller\AppSliderController::auth
