@@ -25,7 +25,7 @@ class AppSliderController extends AbstractController
     }
 
     /**
-     * @Route("/slider/auth", name="app_slider_install_auth")
+     * @Route("/slider/auth", name="app_slider_auth")
      */
     public function auth()
     {
