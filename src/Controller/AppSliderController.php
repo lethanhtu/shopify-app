@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class AppSliderController extends AbstractController
 {
 
-    const URL = "https://shopify-app-tule.herokuapp.com/";
+    const URL = "https://shopify-app-tule.herokuapp.com";
     const ApiKey = "2a5fd5fb378d4dc66a675342ee712c56";
 
     public function install(Request $request)
