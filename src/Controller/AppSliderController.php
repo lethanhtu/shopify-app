@@ -23,8 +23,11 @@ class AppSliderController extends AbstractController
     }
 
 
-    public function auth()
+    public function auth(Request $request)
     {
+
+        $code = $request->get('code');
+        $shop = $request->get('shop');
         $hmac = $_GET['hmac'];
         unset($_GET['hmac']);
 
@@ -42,6 +45,9 @@ class AppSliderController extends AbstractController
         $str = join('&', $ar);
         $ver_hmac = hash_hmac('sha256', $str, self::ApiSecret, false);
 
-        return new Response($ver_hmac === $hmac ? 'Verify success' : 'Verify fail');
+        if($ver_hmac!=$hmac) {
+            return new Response('Something wrong', 500);
+        }
+
     }
 }
