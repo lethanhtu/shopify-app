@@ -16,32 +16,32 @@ class AppSliderController extends AbstractController
 
     public function install(Request $request)
     {
-        $shop = "https://".$request->get('shop');
+        $shop = "https://" . $request->get('shop');
         $scopes = "read_orders,read_products,write_products";
-        $url = $shop."/admin/oauth/request_grant?client_id=".self::ApiKey."&scope=".$scopes."&redirect_uri=".self::URL."/slider/auth";
+        $url = $shop . "/admin/oauth/request_grant?client_id=" . self::ApiKey . "&scope=" . $scopes . "&redirect_uri=" . self::URL . "/slider/auth";
         return new RedirectResponse($url);
     }
 
 
-    public function auth(Request $request)
+    public function auth()
     {
         $hmac = $_GET['hmac'];
         unset($_GET['hmac']);
 
-        foreach($_GET as $key=>$value){
+        foreach ($_GET as $key => $value) {
 
-            $key=str_replace("%","%25",$key);
-            $key=str_replace("&","%26",$key);
-            $key=str_replace("=","%3D",$key);
-            $value=str_replace("%","%25",$value);
-            $value=str_replace("&","%26",$value);
+            $key = str_replace("%", "%25", $key);
+            $key = str_replace("&", "%26", $key);
+            $key = str_replace("=", "%3D", $key);
+            $value = str_replace("%", "%25", $value);
+            $value = str_replace("&", "%26", $value);
 
-            $ar[] = $key."=".$value;
+            $ar[] = $key . "=" . $value;
         }
 
-        $str = join('&',$ar);
-        $ver_hmac =  hash_hmac('sha256',$str,self::ApiSecret,false);
+        $str = join('&', $ar);
+        $ver_hmac = hash_hmac('sha256', $str, self::ApiSecret, false);
 
-        return new Response(''.($ver_hmac=== $hmac));
+        return new Response($ver_hmac === $hmac ? 'Verify success' : 'Verify fail');
     }
 }
