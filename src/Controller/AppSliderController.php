@@ -58,7 +58,7 @@ class AppSliderController extends AbstractController
         ];
 
         $client = new Client(['base_uri' => $url]);
-        $response = $client->request('POST', '', $data);
+        $response = $client->request('POST', '', json_encode($data));
 
         var_dump($response->getBody());
         return new Response();
