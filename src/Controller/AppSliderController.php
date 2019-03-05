@@ -50,15 +50,14 @@ class AppSliderController extends AbstractController
             return new Response('Something wrong', 500);
         }
 
-        $url = 'https://' . $shop . '/admin/oauth/access_token';
         $data = [
             'client_id' => self::ApiKey,
             'client_secret' => self::ApiSecret,
             'code' => $code
         ];
 
-        $client = new Client(['base_uri' => $url]);
-        $response = $client->request('POST', '', $data);
+        $client = new Client(['base_uri' => 'https://' . $shop]);
+        $response = $client->request('POST', '/admin/oauth/access_token', ['body' => $data]);
 
         var_dump($response->getBody());
         return new Response();
