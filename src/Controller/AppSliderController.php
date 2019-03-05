@@ -92,8 +92,9 @@ class AppSliderController extends AbstractController
             ]
         );
 
-        var_dump($result->getBody()->getContents());
-        return new Response();
+        $content = json_decode($result->getBody()->getContents(), true);
 
+        print_r($content['asset']['value']);
+        return new Response();
     }
 }
