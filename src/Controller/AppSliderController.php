@@ -76,6 +76,23 @@ class AppSliderController extends AbstractController
             ]
         ]);
 
+        $themes = (array)json_decode($result);
+
+        if(!count($themes)) {
+            return new Response('Something wrong', 500);
+        }
+
+        $themeId = $themes[0]['id'];
+
+        $result = $client->get('GET',
+            sprintf('admin/themes/%s/assets.json?asset[key]=sections/product-template.liquid', $themeId),
+            [
+                'headers' => [
+                    'X-Shopify-Access-Token' => $token
+                ]
+            ]
+        );
+
         var_dump($result->getBody()->getContents());
         return new Response();
 
