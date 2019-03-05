@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AppSliderController extends AbstractController
 {
@@ -41,11 +42,6 @@ class AppSliderController extends AbstractController
         $str = join('&',$ar);
         $ver_hmac =  hash_hmac('sha256',$str,self::ApiSecret,false);
 
-        if($ver_hmac==$hmac)
-        {
-            echo 'hmac verified';
-        } else {
-            echo 'fail';
-        }
+        return new Response(''.($ver_hmac=== $hmac));
     }
 }
