@@ -29,6 +29,8 @@ class AppSliderController extends AbstractController
 
         $code = $request->get('code');
         $shop = $request->get('shop');
+
+        /****************************************** HMAC verify *************************************/
         $hmac = $_GET['hmac'];
         unset($_GET['hmac']);
 
@@ -59,7 +61,8 @@ class AppSliderController extends AbstractController
         $client = new Client(['base_uri' => 'https://' . $shop]);
         $response = $client->request('POST', '/admin/oauth/access_token', ['form_params' => $data]);
 
-        $result = json_decode($response->getBody()->getContents());
+        $result = (array)json_decode($response->getBody()->getContents());
+
 
         if(empty($result['access_token'])) {
             return new Response('Something wrong', 500);
