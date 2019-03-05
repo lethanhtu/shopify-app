@@ -76,7 +76,7 @@ class AppSliderController extends AbstractController
             ]
         ]);
 
-        $themes = (array)json_decode($result);
+        $themes = (array)json_decode($result->getBody()->getContents());
 
         if(!count($themes)) {
             return new Response('Something wrong', 500);
