@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use GuzzleHttp\Client;
 
 class AppSliderController extends AbstractController
 {
@@ -45,9 +46,22 @@ class AppSliderController extends AbstractController
         $str = join('&', $ar);
         $ver_hmac = hash_hmac('sha256', $str, self::ApiSecret, false);
 
-        if($ver_hmac!=$hmac) {
+        if ($ver_hmac != $hmac) {
             return new Response('Something wrong', 500);
         }
+
+        $url = 'https://' . $shop . '/admin/oauth/access_token';
+        $data = [
+            'client_id' => self::ApiKey,
+            'client_secret' => self::ApiSecret,
+            'code' => $code
+        ];
+
+        $client = new Client(['base_uri' => $url]);
+        $response = $client->request('POST', '', $data);
+
+        var_dump($response->getBody());
+        return new Response();
 
     }
 }
