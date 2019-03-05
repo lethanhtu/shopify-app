@@ -77,12 +77,11 @@ class AppSliderController extends AbstractController
         ]);
 
         $themes = json_decode($result->getBody()->getContents(), true);
-        print_r($themes);
-        if(!count($themes)) {
+        if(!count($themes['themes'])) {
             return new Response('Something wrong', 500);
         }
 
-        $themeId = $themes[0]['id'];
+        $themeId = $themes['themes'][0]['id'];
 
         $result = $client->get('GET',
             sprintf('admin/themes/%s/assets.json?asset[key]=sections/product-template.liquid', $themeId),
