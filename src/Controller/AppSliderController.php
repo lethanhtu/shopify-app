@@ -59,7 +59,21 @@ class AppSliderController extends AbstractController
         $client = new Client(['base_uri' => 'https://' . $shop]);
         $response = $client->request('POST', '/admin/oauth/access_token', ['form_params' => $data]);
 
-        var_dump($response->getBody()->getContents());
+        $result = json_decode($response->getBody()->getContents());
+
+        if(empty($result['access_token'])) {
+            return new Response('Something wrong', 500);
+        }
+
+        $token = $result['access_token'];
+
+        $result = $client->request('GET', '/admin/themes.json', [
+            'headers' => [
+                'X-Shopify-Access-Token' => $token
+            ]
+        ]);
+
+        var_dump($result->getBody()->getContents());
         return new Response();
 
     }
