@@ -57,7 +57,7 @@ class AppSliderController extends AbstractController
         ];
 
         $client = new Client(['base_uri' => 'https://' . $shop]);
-        $response = $client->request('POST', '/admin/oauth/access_token', ['body' => $data]);
+        $response = $client->request('POST', '/admin/oauth/access_token', ['form_params' => $data]);
 
         var_dump($response->getBody());
         return new Response();
