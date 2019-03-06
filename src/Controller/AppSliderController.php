@@ -98,13 +98,14 @@ class AppSliderController extends AbstractController
         $template = $content['asset']['value'];
 
         $search = '    </div>
-        
+
     <div class="grid__item {{ product_description_width }}">';
 
         $title = '
             {% for collection in product.collections %}
                 {{ collection.title}}
             {% endfor %}
+            
         ';
 
 
