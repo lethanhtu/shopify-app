@@ -100,11 +100,11 @@ class AppSliderController extends AbstractController
         $search = '<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>';
 
         $title = '<div id="shopmacher-slider">
-            {% for collection in product.collections %}
-                {{ collection.title}}
-            {% endfor %}
-            </div>
-        ';
+                       {% for collection in product.collections %}
+                        {{ collection.title}}
+                       {% endfor %}
+                  </div>
+                  ';
 
 
         $newTemplate = str_replace($search, $title.$search, $template);
