@@ -85,7 +85,7 @@ class AppSliderController extends AbstractController
 
         $result = $client->request(
             'GET',
-            sprintf('admin/themes/%s/assets.json?asset[key]=sections/product-template.liquid', $themeId),
+            sprintf('admin/themes/%s/assets.json?asset[key]=template/product.liquid', $themeId),
             [
                 'headers' => [
                     'X-Shopify-Access-Token' => $token
@@ -110,7 +110,19 @@ class AppSliderController extends AbstractController
                   ';
 
 
-        $newTemplate = str_replace($search, $title.$search, $template);
+        $newTemplate = $template.'{% comment %}
+  Start  Product Shopmacher Slider
+{% endcomment %}
+<div id="shopmacher-slider">
+       {% for collection in product.collections %}
+          {% for product in collection.products %}
+            <p>{{ product.title }}</p>
+          {% endfor %}
+       {% endfor %}
+</div>
+{% comment %}
+  End  Product Shopmacher Slider
+{% endcomment %}';
 
 
         $client->request(
@@ -122,7 +134,7 @@ class AppSliderController extends AbstractController
                 ],
                 'form_params' => [
                     'asset' => [
-                        'key' => 'sections/product-template.liquid',
+                        'key' => 'template/product.liquid',
                         'value' => $newTemplate
                     ]
                 ]
