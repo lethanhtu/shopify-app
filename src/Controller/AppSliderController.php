@@ -98,7 +98,8 @@ class AppSliderController extends AbstractController
         $template = $content['asset']['value'];
 
 
-        $newTemplate = $template.'{% comment %}
+        $newTemplate = $template.'
+{% comment %}
   Start  Product Shopmacher Slider
 {% endcomment %}
 <div id="shopmacher-slider">
