@@ -102,13 +102,31 @@ class AppSliderController extends AbstractController
 {% comment %}
   Start  Product Shopmacher Slider
 {% endcomment %}
-<div id="shopmacher-slider">
-       {% for collection in product.collections %}
-          {% for product in collection.products %}
-            <p>{{ product.title }}</p>
-          {% endfor %}
-       {% endfor %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<div id="shopmacher-slider" style="margin-left:50px; margin-right:50px">
+  {% assign exist_id = "" %}
+  <div class="owl-carousel owl-theme">
+   {% for collection in product.collections %}
+      {% for product in collection.products %}
+        {% if exist_id contains product.id %}
+        {% else %}
+          <div class="item">
+            <a href="{{ product.url }}">
+              <img src="{{ product | img_url }}"/>
+              <p style="text-align:center; font-weight:bold; margin-top:20px">{{product.price}} $</p>
+            </a>
+          </div>
+          {% assign exist_id = exist_id | append: product.id %}          
+        {% endif %}
+      {% endfor %}
+   {% endfor %}
+  </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer="defer"></script>
+
+<script src="https://shopify-app-tule.herokuapp.com/slider.js" defer="defer">
+</script>
 {% comment %}
   End  Product Shopmacher Slider
 {% endcomment %}';
