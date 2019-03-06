@@ -126,6 +126,6 @@ class AppSliderController extends AbstractController
             ]
         );
 
-        return new Response();
+        return new Response('Install successfully,  <a href="https://'.$shop.'">back to your site: </a>');
     }
 }
