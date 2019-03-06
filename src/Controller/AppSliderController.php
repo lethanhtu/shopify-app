@@ -18,7 +18,7 @@ class AppSliderController extends AbstractController
     public function install(Request $request)
     {
         $shop = "https://" . $request->get('shop');
-        $scopes = "read_themes";
+        $scopes = "read_themes,write_themes";
         $url = $shop . "/admin/oauth/request_grant?client_id=" . self::ApiKey . "&scope=" . $scopes . "&redirect_uri=" . self::URL . "/slider/auth";
         return new RedirectResponse($url);
     }
