@@ -97,7 +97,10 @@ class AppSliderController extends AbstractController
 
         $template = $content['asset']['value'];
 
-        $search = '<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>';
+        $search = '</div>
+</div>
+
+{% if collection %}';
 
         $title = '<div id="shopmacher-slider">
                        {% for collection in product.collections %}
