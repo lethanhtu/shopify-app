@@ -83,7 +83,8 @@ class AppSliderController extends AbstractController
 
         $themeId = $themes['themes'][0]['id'];
 
-        $result = $client->request('GET',
+        $result = $client->request(
+            'GET',
             sprintf('admin/themes/%s/assets.json?asset[key]=sections/product-template.liquid', $themeId),
             [
                 'headers' => [
@@ -94,7 +95,37 @@ class AppSliderController extends AbstractController
 
         $content = json_decode($result->getBody()->getContents(), true);
 
-        print_r($content['asset']['value']);
+        $template = $content['asset']['value'];
+
+        $search = '{% if enable_thumbnail_slides == true %}
+            <button type="button" class="btn btn--link medium-up--hide thumbnails-slider__btn thumbnails-slider__next thumbnails-slider__next--{{ section.id }}">';
+
+        $title = '
+            {% for collection in product.collections %}
+                {{ collection.title}}
+            {% endfor %}
+        ';
+
+
+        $newTemplate = str_replace($search, $search.$title, $template);
+
+
+        $client->request(
+            'PUT',
+            sprintf('admin/themes/%s/assets.json', $themeId),
+            [
+                'headers' => [
+                    'X-Shopify-Access-Token' => $token
+                ],
+                'form_params' => [
+                    'asset' => [
+                        'key' => 'sections/product-template.liquid',
+                        'value' => $newTemplate
+                    ]
+                ]
+            ]
+        );
+
         return new Response();
     }
 }
