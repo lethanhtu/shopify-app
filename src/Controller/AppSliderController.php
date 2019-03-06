@@ -97,8 +97,9 @@ class AppSliderController extends AbstractController
 
         $template = $content['asset']['value'];
 
-        $search = '{% if enable_thumbnail_slides == true %}
-            <button type="button" class="btn btn--link medium-up--hide thumbnails-slider__btn thumbnails-slider__next thumbnails-slider__next--{{ section.id }}">';
+        $search = '    </div>
+        
+    <div class="grid__item {{ product_description_width }}">';
 
         $title = '
             {% for collection in product.collections %}
@@ -107,7 +108,7 @@ class AppSliderController extends AbstractController
         ';
 
 
-        $newTemplate = str_replace($search, $search.$title, $template);
+        $newTemplate = str_replace($search, $title.$search, $template);
 
 
         $client->request(
