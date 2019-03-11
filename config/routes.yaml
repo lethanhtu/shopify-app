@@ -5,3 +5,7 @@ slider_install:
 slider_auth:
   path: /slider/auth
   controller: App\Controller\AppSliderController::auth
+
+slider_config:
+  path: /slider/config
+  controller: App\Controller\AppSliderConfigController::configRender
