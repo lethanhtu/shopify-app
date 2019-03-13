@@ -3,17 +3,13 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-use GuzzleHttp\Client;
 use App\Service\Shopify\ShopifyUtil;
 use App\Service\Shopify\ShopifyAuth;
 
 
-class AppSliderController extends AbstractController
+class SliderController extends AbstractController
 {
-
     public function install()
     {
         $shopUrl = ShopifyUtil::getShopURL();
@@ -38,5 +34,10 @@ class AppSliderController extends AbstractController
         }
 
         return $this->render('error/500.html.twig');
+    }
+
+    public function config()
+    {
+        return $this->render('slider/config.html.twig');
     }
 }
