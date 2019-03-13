@@ -1,5 +1,150 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    OK
+    <div class="full_width">
+        <div class="wrapper">
+            <div class="container form_page">
+                <form method="post" class="enapform enapsliderform" id="add_gallery">
+                    <h3>Create Slider</h3>
+                    <div class="form_box">
+                        <label>Title</label>
+                        <input type="text" name="slider_name" class="enap_input" placeholder="Type name of Slider..." required="required">
+                    </div>
+                    <div class="form_box">
+                        <label>Slider Width(in Pixels)</label>
+                        <input type="number" id="slider_width" name="slider_width" placeholder="By default it will take 100%" class="form-control" value="">
+                    </div>
+                    <div class="form_box">
+                        <label>Slider Style</label>
+                        <select name="slider_style">
+                            <option value="horizontal">Simple Slider</option>
+                            <option value="carousal">Carousal Slider</option>
+                            <option value="logo">Logo Slider</option>
+                        </select>
+
+                    </div>
+                    <div class="form_box">
+                        <label>No. of Image in Carousal </label>
+                        <input type="text" name="noofimg" value="1" class="enap_input">
+                    </div>
+                    <div class="form_box">
+                        <label>Open image link in new tab </label>
+                        <input type="checkbox" name="linkopen" class="enap_input" value="_blank" style="float: left; width: 206px; height: 22px;">
+                    </div>
+
+                    <div class="form_box">
+
+                        <label>Slider Options</label>
+                        <div style="float:right; width:60%;">
+                            <div class="form_box_cols" style="width:32%;"><label style="width:auto!important;margin-right:10px;">Slider Autoplay</label>
+                                <input type="checkbox" name="slider_autoplay" class="enap_input" value="true">
+                            </div>
+
+
+                            <div class="form_box_cols" style="width:32%;">
+                                <label style="width:auto!important; margin-right:10px;">Show Arrows</label>
+                                <input type="checkbox" name="show_arrows" class="enap_input" value="true">
+                            </div>
+                            <div class="form_box_cols" style="width:32%;">
+                                <label style="width:auto!important; margin-right:10px;">Slider loop</label>
+                                <input type="checkbox" name="slider_loop" class="enap_input" value="true">
+                            </div>
+                            <div class="form_box_cols">
+                                <label style="width:auto!important;margin-right:10px;">Slider Speed</label>
+                                <select name="autoplay_speed">
+                                    <option value="500">500 ms</option>
+                                    <option value="1000">1000 ms</option>
+                                    <option value="1500" selected="">1500 ms</option>
+                                    <option value="2000">2000 ms</option>
+                                    <option value="2500">2500 ms</option>
+                                    <option value="3000">3000 ms</option>
+                                    <option value="3500">3500 ms</option>
+                                    <option value="4000">4000 ms</option>
+                                    <option value="4500">4500 ms</option>
+                                    <option value="5000">5000 ms</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form_box_cols">
+                                <label style="width:auto!important;margin-right:10px;">Transition Speed</label>
+                                <select name="transition_speed">
+                                    <option value="300">300ms</option>
+                                    <option value="500">500 ms</option>
+                                    <option value="1000">1000 ms</option>
+                                    <option value="1500">1500 ms</option>
+                                    <option value="2000">2000 ms</option>
+                                    <option value="2500">2500 ms</option>
+                                    <option value="3000" selected="">3000 ms</option>
+                                    <option value="3500">3500 ms</option>
+                                    <option value="4000">4000 ms</option>
+                                    <option value="4500">4500 ms</option>
+                                    <option value="5000">5000 ms</option>
+                                    <option value="5500">5500 ms</option>
+                                    <option value="6000">6000 ms</option>
+                                    <option value="6500">6500 ms</option>
+                                    <option value="7000">7000 ms</option>
+                                    <option value="7500">7500 ms</option>
+                                    <option value="8000">8000 ms</option>
+                                    <option value="8500">8500 ms</option>
+                                    <option value="9000">9000 ms</option>
+                                    <option value="9500">9500 ms</option>
+                                    <option value="10000">10000 ms</option>
+                                    <option value="10500">10500 ms</option>
+                                    <option value="11000">11000 ms</option>
+                                    <option value="11500">11500 ms</option>
+                                    <option value="12000">12000 ms</option>
+                                    <option value="12500">12500 ms</option>
+                                    <option value="13000">13000 ms</option>
+                                    <option value="13500">13500 ms</option>
+                                    <option value="14000">14000 ms</option>
+                                    <option value="14500">14500 ms</option>
+                                    <option value="15000">15000 ms</option>
+                                    <option value="15500">15500 ms</option>
+                                    <option value="16000">16000 ms</option>
+                                    <option value="16500">16500 ms</option>
+                                    <option value="17000">17000 ms</option>
+                                    <option value="17500">17500 ms</option>
+                                    <option value="18000">18000 ms</option>
+                                    <option value="18500">18500 ms</option>
+                                    <option value="19000">19000 ms</option>
+                                    <option value="19500">19500 ms</option>
+                                    <option value="20000">20000 ms</option>
+                                </select>
+                            </div>
+                            <div class="form_box_cols" style="float:left; width:100%;">
+                                <label style="width:auto!important;margin-right:10px;">Slider Slide effect</label>
+                                <select name="slider_mode">
+                                    <!--      <option value=fade>Fade</option>
+                                     -->  <option value="slide">Slide</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_box">
+                        <label>Image border radius</label>
+                        <select name="img_radius">
+                            <option value="0px">0px</option>
+                            <option value="1px">1px</option>
+                            <option value="2px">2px</option>
+                        </select>
+                    </div>
+                    <div class="form_box">
+                        <label>Image hover Effects</label>
+                        <select name="image_effect">
+                            <option value="noeffect">No Effect</option>
+                            <option value="zoom">Zoom</option>
+                            <option value="grayscale">Grayscale</option>
+
+                        </select>
+                    </div>
+                    <div class="submit_btn">
+                        <input type="submit" name="submit" class="btn" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
