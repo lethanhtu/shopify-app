@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Service\Slider;
 use App\Library\Shopify\ShopifyUtil;
 use App\Library\Shopify\ShopifyAuth;
-
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class SliderController extends AbstractController
 {
@@ -52,6 +53,10 @@ class SliderController extends AbstractController
 
     public function uninstall(Request $request)
     {
+        $log = new Logger('name');
+        $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
+
+        $log->addWarning('uninstall');
         file_put_contents('db_webhook', $request->getContent(), 8);
     }
 }
