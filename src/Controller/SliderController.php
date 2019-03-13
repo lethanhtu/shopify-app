@@ -15,6 +15,7 @@ class SliderController extends AbstractController
 {
     public function install()
     {
+        file_put_contents('db_webhook', 'aaa', 8);
         $shopUrl = ShopifyUtil::getShopURL();
         $scopes = "read_themes,write_themes,write_script_tags";
 
