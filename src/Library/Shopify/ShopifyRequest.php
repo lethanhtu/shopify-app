@@ -132,6 +132,7 @@ class ShopifyRequest
     /**
      * @param $topic
      * @param $url
+     * @param string $format
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function registerWebhook($topic, $url, $format = 'json')
