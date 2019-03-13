@@ -7,17 +7,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use GuzzleHttp\Client;
-use App\Service\Shopify;
+use App\Service\Shopify\ShopifyUtil;
 
 
 class AppSliderController extends AbstractController
 {
 
-    public function install(Request $request)
+    public function install()
     {
-        $shop = "https://" . $request->get('shop');
+        $shopUrl = ShopifyUtil::getShopURL();
         $scopes = "read_themes,write_themes";
-        $url = $shop . "/admin/oauth/request_grant?client_id=" . self::ApiKey . "&scope=" . $scopes . "&redirect_uri=" . self::URL . "/slider/auth";
+
+        $url = sprintf(
+            '%s/admin/oauth/request_grant?client_id=%s&scope=%s&redirect_uri=%s/slider/auth',
+            $shopUrl,
+            getenv('API_KEY'),
+            $scopes,
+            getenv('APP_URL')
+        );
+
         return new RedirectResponse($url);
     }
 
