@@ -30,6 +30,6 @@ class Slider
      */
     public function addContent()
     {
-        $this->request->addScriptTag(sprintf('%s/slider.js', getenv('APP_URL')));
+        $this->request->addScriptTag(sprintf('%s/slider/js/slider.js', getenv('APP_URL')));
     }
 }
