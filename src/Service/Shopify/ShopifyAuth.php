@@ -17,6 +17,9 @@ class ShopifyAuth
 
     }
 
+    /**
+     * @return bool
+     */
     public static function validateHMAC()
     {
         $hmac = $_GET['hmac'];
@@ -36,9 +39,7 @@ class ShopifyAuth
         $str = join('&', $ar);
         $ver_hmac = hash_hmac('sha256', $str, getenv('API_SECRET'), false);
 
-        if ($ver_hmac != $hmac) {
-            return new Exception('HMAC is invalid');
-        }
+        return $ver_hmac == $hmac;
     }
 
     public static function getAccessToken()

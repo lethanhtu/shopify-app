@@ -2,7 +2,7 @@
 
 namespace App\Service\Shopify;
 
-
+use GuzzleHttp\Client;
 
 class ShopifyRequest
 {
@@ -14,8 +14,8 @@ class ShopifyRequest
         $this->accessToken  = ShopifyAuth::validateHMAC();
     }
 
-    public function getShopUrl()
+    public function updateTemplate()
     {
-        return 'https://'.$this->shop;
+
     }
 }
