@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use App\Service\Shopify\ShopifyUtil;
-use App\Service\Shopify\ShopifyAuth;
+use Symfony\Component\HttpFoundation\Request;
+use App\Library\Shopify\ShopifyUtil;
+use App\Library\Shopify\ShopifyAuth;
 
 
 class SliderController extends AbstractController
@@ -36,8 +37,11 @@ class SliderController extends AbstractController
         return $this->render('error/500.html.twig');
     }
 
-    public function config()
+    public function config(Request $request)
     {
+        if($request->getMethod() == 'GET' ) {
+
+        }
         return $this->render('slider/config.html.twig');
     }
 }

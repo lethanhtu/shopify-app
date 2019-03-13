@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Shopify;
+namespace App\Library\Shopify;
 
 use GuzzleHttp\Client;
 
@@ -10,14 +10,16 @@ use GuzzleHttp\Client;
  */
 class ShopifyRequest
 {
-    protected $accessToken;
+    protected $header;
     protected $client;
     protected $themeId;
 
 
     public function __construct()
     {
-        $this->accessToken = ShopifyAuth::getAccessToken();
+        $this->header = [
+            'X-Shopify-Access-Token' => ShopifyAuth::getAccessToken()
+        ];
         $this->client = new Client(['base_uri' => ShopifyUtil::getShopURL()]);
         $this->themeId = $this->getActiveThemeId();
     }
@@ -31,11 +33,9 @@ class ShopifyRequest
     {
         $result = $this->client->request(
             'GET',
-            sprintf('admin/themes/%s/assets.json?asset[key]=%s', $this->themeId, $templateKey),
+            sprintf('/admin/themes/%s/assets.json?asset[key]=%s', $this->themeId, $templateKey),
             [
-                'headers' => [
-                    'X-Shopify-Access-Token' => $this->accessToken
-                ]
+                'headers' => $this->header
             ]
         );
 
@@ -56,9 +56,7 @@ class ShopifyRequest
     public function getActiveThemeId()
     {
         $result = $this->client->request('GET', '/admin/themes.json', [
-            'headers' => [
-                'X-Shopify-Access-Token' => $this->accessToken
-            ]
+            'headers' => $this->header
         ]);
 
         $themes = json_decode($result->getBody()->getContents(), true);
@@ -79,11 +77,9 @@ class ShopifyRequest
     {
         $this->client->request(
             'PUT',
-            sprintf('admin/themes/%s/assets.json', $this->themeId),
+            sprintf('/admin/themes/%s/assets.json', $this->themeId),
             [
-                'headers' => [
-                    'X-Shopify-Access-Token' => $this->accessToken
-                ],
+                'headers' => $this->header,
                 'form_params' => [
                     'asset' => [
                         'key' => $templateKey,
@@ -94,5 +90,43 @@ class ShopifyRequest
         );
     }
 
+    /**
+     * @param $scriptLink string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addScriptTag($scriptLink)
+    {
+        $result = $this->client->request(
+            'POST',
+            '/admin/script_tags.json',
+            [
+                'headers' => $this->header,
+                'form_params' => [
+                    'script_tag' => [
+                        'event' => 'onload',
+                        'src' => $scriptLink
+                    ]
+                ]
+            ]
 
+        );
+
+        file_put_contents('debug.txt', $result->getBody()->getContents(), 8);
+
+
+    }
+
+
+    public function deleteScriptTag($scriptTagId)
+    {
+        $this->client->request(
+            'DELETE',
+            sprintf('/admin/script_tags/%s.json', $scriptTagId),
+            [
+                'headers' => $this->header
+            ]
+
+        );
+    }
 }
+
