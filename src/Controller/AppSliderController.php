@@ -129,6 +129,8 @@ class AppSliderController extends AbstractController
   End  Product Shopmacher Slider
 {% endcomment %}';
 
+        
+
 
         $client->request(
             'PUT',
