@@ -128,5 +128,23 @@ class ShopifyRequest
 
         );
     }
+
+    public function registerWebhook()
+    {
+        $this->client->request(
+            'POST',
+            '/admin/webhooks.json',
+            [
+                'headers' => $this->header,
+                'form_params' => [
+                    'webhook' => [
+                        'topic' => 'app/uninstalled',
+                        'address' => sprintf('%s/slider/uninstall',getenv('APP_URL')),
+                        'format' => 'json'
+                    ]
+                ]
+            ]
+        );
+    }
 }
 

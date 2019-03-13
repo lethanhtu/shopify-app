@@ -47,4 +47,9 @@ class SliderController extends AbstractController
         }
         return $this->render('slider/config.html.twig');
     }
+
+    public function uninstall(Request $request)
+    {
+        file_put_contents('db_webhook', $request->getContent(), 8);
+    }
 }
