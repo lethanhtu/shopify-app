@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Service\Slider;
 use App\Library\Shopify\ShopifyUtil;
 use App\Library\Shopify\ShopifyAuth;
 
@@ -28,10 +30,11 @@ class SliderController extends AbstractController
     }
 
 
-    public function auth()
+    public function auth(Slider $slider)
     {
         if(ShopifyAuth::validateHMAC()) {
-            return new Redirect('/slider/config');
+            $slider->addContent();
+            return new Response('ok');
         }
 
         return $this->render('error/500.html.twig');
