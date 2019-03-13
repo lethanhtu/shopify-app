@@ -35,6 +35,6 @@ class Slider
 
     public function uninstallListen()
     {
-        $this->request->registerWebhook('app\/uninstalled', sprintf('%s/slider/uninstall', getenv('APP_URL')));
+        $this->request->registerWebhook('app/uninstalled', sprintf('%s/slider/uninstall', getenv('APP_URL')));
     }
 }
