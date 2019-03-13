@@ -16,7 +16,7 @@ class SliderController extends AbstractController
     public function install()
     {
         $shopUrl = ShopifyUtil::getShopURL();
-        $scopes = "read_themes,write_themes";
+        $scopes = "read_themes,write_themes,write_script_tags";
 
         $url = sprintf(
             '%s/admin/oauth/request_grant?client_id=%s&scope=%s&redirect_uri=%s/slider/auth',
