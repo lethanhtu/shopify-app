@@ -33,6 +33,7 @@ class SliderController extends AbstractController
     public function auth(Slider $slider)
     {
         if(ShopifyAuth::validateHMAC()) {
+            $slider->uninstallListen();
             $slider->addContent();
             return new Response('ok');
         }

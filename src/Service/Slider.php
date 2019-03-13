@@ -32,4 +32,9 @@ class Slider
     {
         $this->request->addScriptTag(sprintf('%s/slider/js/slider.js', getenv('APP_URL')));
     }
+
+    public function uninstallListen()
+    {
+        $this->request->registerWebhook('app/uninstall', sprintf('%s/slider/uninstall', getenv('APP_URL')));
+    }
 }

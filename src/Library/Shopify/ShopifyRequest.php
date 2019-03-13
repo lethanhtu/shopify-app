@@ -129,7 +129,12 @@ class ShopifyRequest
         );
     }
 
-    public function registerWebhook()
+    /**
+     * @param $topic
+     * @param $url
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function registerWebhook($topic, $url, $format = 'json')
     {
         $this->client->request(
             'POST',
@@ -138,9 +143,9 @@ class ShopifyRequest
                 'headers' => $this->header,
                 'form_params' => [
                     'webhook' => [
-                        'topic' => 'app/uninstalled',
-                        'address' => sprintf('%s/slider/uninstall',getenv('APP_URL')),
-                        'format' => 'json'
+                        'topic' => $topic,
+                        'address' => $url,
+                        'format' => $format
                     ]
                 ]
             ]
