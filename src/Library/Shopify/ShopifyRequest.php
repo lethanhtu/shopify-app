@@ -3,6 +3,7 @@
 namespace App\Library\Shopify;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 
 /**
  * Class ShopifyRequest
@@ -142,7 +143,7 @@ class ShopifyRequest
             '/admin/webhooks.json',
             [
                 'headers' => $this->header,
-                'form_params' => [
+                RequestOptions::JSON  => [
                     'webhook' => [
                         'topic' => $topic,
                         'address' => $url,
