@@ -18,7 +18,7 @@ class SliderController extends AbstractController
 {
     public function install()
     {
-        return $this->render('config.html.twig', [
+        return $this->render('slider/config.html.twig', [
             'apiKey' => getenv('API_KEY'),
             'appUrl' => getenv('APP_URL'),
             'scopes' => 'read_themes,write_themes,write_script_tags',
