@@ -24,18 +24,6 @@ class SliderController extends AbstractController
             'scopes' => 'read_themes,write_themes,write_script_tags',
             'shopOrigin' => ShopifyUtil::getShopURL()
         ]);
-//        $shopUrl = ShopifyUtil::getShopURL();
-//        $scopes = "read_themes,write_themes,write_script_tags";
-//
-//        $url = sprintf(
-//            '%s/admin/oauth/request_grant?client_id=%s&scope=%s&redirect_uri=%s/slider/auth',
-//            $shopUrl,
-//            getenv('API_KEY'),
-//            $scopes,
-//            getenv('APP_URL')
-//        );
-//
-//        return new RedirectResponse($url);
     }
 
 
@@ -44,7 +32,7 @@ class SliderController extends AbstractController
         if(ShopifyAuth::validateHMAC()) {
             $slider->uninstallListen();
             $slider->addContent();
-            return new Response('ok');
+            return new RedirectResponse('%s/admin/apps/%s', ShopifyUtil::getShopURL(), 'shopiapp_product_slider-1');
         }
 
         return $this->render('error/500.html.twig');
