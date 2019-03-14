@@ -20,7 +20,7 @@ class SliderController extends AbstractController
     {
         return $this->render('base.html.twig', [
             'apiKey' => getenv('API_KEY'),
-            'appUrl' => get('APP_URL'),
+            'appUrl' => getenv('APP_URL'),
             'shopOrigin' => ShopifyUtil::getShopURL()
         ]);
 //        $shopUrl = ShopifyUtil::getShopURL();
