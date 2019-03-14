@@ -1,0 +1,74 @@
+.recommendation-items-block {
+    background-color: #f2f2f2;
+    padding: 40px;
+    color: black;
+}
+.recommendation-items-block p, .recommendation-items-block h2 {
+    color: black;
+}
+.recommendation-items-block a, .recommendation-items-block button {
+    outline: none;
+    color: black;
+}
+.recommendation-items-block .heading {
+    text-align: center;
+}
+.recommendation-items .item {
+    background-color: white;
+    text-align: center;
+    margin: 0 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.recommendation-items .item img {
+    margin: 0 auto;
+}
+.recommendation-items .item .content {
+    text-align: center;
+}
+.recommendation-items .item .price-pd {
+    font-weight: bold;
+    margin-top: 20px;
+}
+.recommendation-items .item:hover .price-pd {
+    color: #fc0839;
+}
+.recommendation-items .slick-prev, .recommendation-items .slick-next {
+    background: black;
+    color: white;
+    width: 44px;
+    height: 44px;
+    z-index: 10;
+}
+.recommendation-items .slick-prev:hover, .recommendation-items .slick-next:hover {
+    background: #fc0839;
+}
+.recommendation-items .slick-prev:before, .recommendation-items .slick-next:before {
+    color: #fff;
+    font-size: 16px;
+    opacity: 1;
+    font-weight: bold;
+}
+.recommendation-items .slick-prev.slick-disabled, .recommendation-items .slick-next.slick-disabled {
+    background: #afafaf;
+    cursor: not-allowed;
+}
+.recommendation-items .slick-prev.slick-disabled:before, .recommendation-items .slick-next.slick-disabled:before {
+    color: #4f4f4f;
+}
+@media only screen and (min-width: 768px) {
+    .recommendation-items .slick-prev {
+        left: -44px;
+    }
+}
+.recommendation-items .slick-prev:before {
+    content: "\2190";
+}
+@media only screen and (min-width: 768px) {
+    .recommendation-items .slick-next {
+        right: -44px;
+    }
+}
+.recommendation-items .slick-next:before {
+    content: "\2192";
+}

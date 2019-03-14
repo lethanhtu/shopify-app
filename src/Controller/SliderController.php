@@ -4,16 +4,22 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use App\Service\Shopify\ShopifyUtil;
-use App\Service\Shopify\ShopifyAuth;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Service\Slider;
+use App\Library\Shopify\ShopifyUtil;
+use App\Library\Shopify\ShopifyAuth;
 
-
+/**
+ * Class SliderController
+ * @package App\Controller
+ */
 class SliderController extends AbstractController
 {
     public function install()
     {
         $shopUrl = ShopifyUtil::getShopURL();
-        $scopes = "read_themes,write_themes";
+        $scopes = "read_themes,write_themes,write_script_tags";
 
         $url = sprintf(
             '%s/admin/oauth/request_grant?client_id=%s&scope=%s&redirect_uri=%s/slider/auth',
@@ -27,17 +33,27 @@ class SliderController extends AbstractController
     }
 
 
-    public function auth()
+    public function auth(Slider $slider)
     {
         if(ShopifyAuth::validateHMAC()) {
-            return new Redirect('/slider/config');
+            $slider->uninstallListen();
+            $slider->addContent();
+            return new Response('ok');
         }
 
         return $this->render('error/500.html.twig');
     }
 
-    public function config()
+    public function config(Request $request)
     {
+        if($request->getMethod() == 'GET' ) {
+
+        }
         return $this->render('slider/config.html.twig');
+    }
+
+    public function uninstall(Request $request)
+    {
+
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Shopify;
+namespace App\Library\Shopify;
 
 use GuzzleHttp\Client;
 
@@ -48,7 +48,7 @@ class ShopifyAuth
         $response = $client->request('POST', '/admin/oauth/access_token', ['form_params' =>
             [
                 'client_id' => getenv('API_KEY'),
-                'client_secret' => getenv('API_SERECT'),
+                'client_secret' => getenv('API_SECRET'),
                 'code' => $_GET['code']
             ]
         ]);
