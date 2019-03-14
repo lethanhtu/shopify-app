@@ -18,18 +18,23 @@ class SliderController extends AbstractController
 {
     public function install()
     {
-        $shopUrl = ShopifyUtil::getShopURL();
-        $scopes = "read_themes,write_themes,write_script_tags";
-
-        $url = sprintf(
-            '%s/admin/oauth/request_grant?client_id=%s&scope=%s&redirect_uri=%s/slider/auth',
-            $shopUrl,
-            getenv('API_KEY'),
-            $scopes,
-            getenv('APP_URL')
-        );
-
-        return new RedirectResponse($url);
+        return $this->render('base.html.twig', [
+            'apiKey' => getenv('API_KEY'),
+            'appUrl' => get('APP_URL'),
+            'shopOrigin' => ShopifyUtil::getShopURL()
+        ]);
+//        $shopUrl = ShopifyUtil::getShopURL();
+//        $scopes = "read_themes,write_themes,write_script_tags";
+//
+//        $url = sprintf(
+//            '%s/admin/oauth/request_grant?client_id=%s&scope=%s&redirect_uri=%s/slider/auth',
+//            $shopUrl,
+//            getenv('API_KEY'),
+//            $scopes,
+//            getenv('APP_URL')
+//        );
+//
+//        return new RedirectResponse($url);
     }
 
 
