@@ -10,7 +10,6 @@ class ShopifyUtil
 {
     public static function getShopURL()
     {
-        return $_GET['shop'];
-        //return sprintf('https://%s', $_GET['shop']);
+        return sprintf('https://%s', $_GET['shop']);
     }
 }
