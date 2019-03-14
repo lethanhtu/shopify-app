@@ -32,7 +32,7 @@ class SliderController extends AbstractController
         if(ShopifyAuth::validateHMAC()) {
             $slider->uninstallListen();
             $slider->addContent();
-            return new RedirectResponse('%s/admin/apps/%s', ShopifyUtil::getShopURL(), 'shopiapp_product_slider-1');
+            return new RedirectResponse(sprintf('%s/admin/apps/%s', ShopifyUtil::getShopURL(), 'shopiapp_product_slider-1'));
         }
 
         return $this->render('error/500.html.twig');
