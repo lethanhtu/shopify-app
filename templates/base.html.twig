@@ -21,35 +21,34 @@
 
     <script src="https://unpkg.com/@shopify/app-bridge"></script>
 
-\
+    <script>
+        var AppBridge = window['app-bridge'];
+        var createApp = AppBridge.createApp;
+        var actions = AppBridge.actions;
+        var Redirect = actions.Redirect;
+
+        const apiKey = '{{ apiKey }}';
+        const redirectUri = '{{ appUrl }}/slider/auth';
+        const shopOrigin = '{{ shopOrigin }}';
+        const scopes = '{{ scopes }}';
+        const permissionUrl = '/oauth/authorize?client_id=' + apiKey + '&scope='+scopes+'&redirect_uri=' + redirectUri;
+
+
+        if (window.top == window.self) {
+            window.location.assign(shopOrigin + '/admin' + permissionUrl);
+        } else {
+            const app = createApp({
+                apiKey: apiKey,
+                shopOrigin: shopOrigin,
+            });
+
+            Redirect.create(app).dispatch(Redirect.Action.ADMIN_PATH, permissionUrl);
+        }
+    </script>
+
 </head>
 <body>
 {% block body %}{% endblock %}
-<script>
-    var AppBridge = window['app-bridge'];
-    var createApp = AppBridge.createApp;
-    var actions = AppBridge.actions;
-    var Redirect = actions.Redirect;
 
-    const apiKey = '{{ apiKey }}';
-    const redirectUri = '{{ appUrl }}/slider/auth';
-    const shopOrigin = '{{ shopOrigin }}';
-    const scopes = '{{ scopes }}';
-    const permissionUrl = '/oauth/authorize?client_id=' + apiKey + '&scope='+scopes+'&redirect_uri=' + redirectUri;
-
-
-    if (window.top == window.self) {
-        window.location.assign(shopOrigin + '/admin' + permissionUrl);
-
-
-    } else {
-        const app = createApp({
-            apiKey: apiKey,
-            shopOrigin: shopOrigin,
-        });
-
-        Redirect.create(app).dispatch(Redirect.Action.ADMIN_PATH, permissionUrl);
-    }
-</script>
 </body>
 </html>
