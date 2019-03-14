@@ -29,7 +29,8 @@
 
     const apiKey = '{{ apiKey }}';
     const redirectUri = '{{ appUrl }}';
-    const shopOrigin = '{{ shopOirigin }}';
+    const shopOrigin = '{{ shopOrigin }}';
+    const scopes = '{{ scopes }}';
     const permissionUrl = '/oauth/authorize?client_id=' + apiKey + '&scope='+scopes+'&redirect_uri=' + redirectUri;
 
     // If the current window is the 'parent', change the URL by setting location.href
