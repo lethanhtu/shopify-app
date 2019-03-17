@@ -42,9 +42,10 @@ class ShopifyAuth
         return $ver_hmac == $hmac;
     }
 
-    public static function getAccessToken()
+    public static function generateAccessToken()
     {
-        $client = new Client(['base_uri' => ShopifyUtil::getShopURL()]);
+
+        $client = new Client(['base_uri' => ShopifyUtil::getShopURL($_GET['shop'])]);
         $response = $client->request('POST', '/admin/oauth/access_token', ['form_params' =>
             [
                 'client_id' => getenv('API_KEY'),
@@ -59,6 +60,8 @@ class ShopifyAuth
         if(empty($result['access_token'])) {
             return new \Exception('Access Token is empty');
         }
+
+
 
         return $result['access_token'];
     }

@@ -2,14 +2,14 @@
 
 namespace App\Library\Shopify;
 
-/**
- * Class ShopifyUtil
- * @package App\Library\Shopify
- */
 class ShopifyUtil
 {
-    public static function getShopURL()
+    /**
+     * @param $shopId
+     * @return string
+     */
+    public static function getShopUrl($shopId)
     {
-        return sprintf('https://%s', $_GET['shop']);
+        return sprintf('https://%s', $shopId);
     }
 }

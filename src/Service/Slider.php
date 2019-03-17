@@ -30,11 +30,26 @@ class Slider
      */
     public function addContent()
     {
-        $this->request->addScriptTag(sprintf('%s/slider/js/slider.js', getenv('APP_URL')));
+        $result = $this->request->addScriptTag(sprintf('%s/slider/js/slider.js', getenv('APP_URL')));
+        json_decode($result->getBody()->getContents(), true);
+
     }
 
+    public function removeContent()
+    {
+        $this->request->deleteScriptTag('28199977015');
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function uninstallListen()
     {
         $this->request->registerWebhook('app/uninstalled', sprintf('%s/slider/uninstall', getenv('APP_URL')));
+    }
+
+    public function getRequest()
+    {
+        return $this->request;
     }
 }

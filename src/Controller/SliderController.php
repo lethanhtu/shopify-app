@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use App\Service\Slider;
 use App\Library\Shopify\ShopifyUtil;
 use App\Library\Shopify\ShopifyAuth;
+use App\Entity\Shop;
+
 
 /**
  * Class SliderController
@@ -16,23 +18,35 @@ use App\Library\Shopify\ShopifyAuth;
  */
 class SliderController extends AbstractController
 {
+
     public function install()
     {
         return $this->render('slider/config.html.twig', [
             'apiKey' => getenv('API_KEY'),
             'appUrl' => getenv('APP_URL'),
-            'scopes' => 'read_themes,write_themes,write_script_tags',
-            'shopOrigin' => ShopifyUtil::getShopURL()
+            'scopes' => 'read_themes,write_themes,write_script_tags,read_products',
+            'shopOrigin' => ShopifyUtil::getShopUrl($_GET['shop'])
         ]);
     }
 
 
-    public function auth(Slider $slider)
+    public function auth(Slider $slider, EntityManagerInterface $em)
     {
-        if(ShopifyAuth::validateHMAC()) {
+        if (ShopifyAuth::validateHMAC()) {
+
+            $accessToken = ShopifyAuth::generateAccessToken();
+
+            $slider->getRequest()->setAccessToken($accessToken);
+
             $slider->uninstallListen();
-            $slider->addContent();
-            return new RedirectResponse(sprintf('%s/admin/apps/%s', ShopifyUtil::getShopURL(), 'shopiapp_product_slider-1'));
+
+            $shop = new Shop();
+            $shop->setShopId($_GET['shop']);
+            $shop->setAccessToken($accessToken);
+            $em->persist($em);
+            $em->flush();
+
+            return new RedirectResponse(sprintf('%s/admin/apps/%s', ShopifyUtil::getShopUrl($_GET['shop']), 'shopiapp_product_slider-1'));
         }
 
         return $this->render('error/500.html.twig');
@@ -40,7 +54,7 @@ class SliderController extends AbstractController
 
     public function config(Request $request)
     {
-        if($request->getMethod() == 'GET' ) {
+        if ($request->getMethod() == 'GET') {
 
         }
         return $this->render('slider/config.html.twig');

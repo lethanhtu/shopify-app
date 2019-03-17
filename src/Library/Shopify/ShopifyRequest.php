@@ -17,11 +17,9 @@ class ShopifyRequest
 
     public function __construct()
     {
-        $this->header = [
-            'X-Shopify-Access-Token' => ShopifyAuth::getAccessToken()
-        ];
-        $this->client = new Client(['base_uri' => ShopifyUtil::getShopURL()]);
-        $this->themeId = $this->getActiveThemeId();
+        if(isset($_GET['shop'])) {
+            $this->client = new Client(['base_uri' => ShopifyUtil::getShopUrl($_GET['shop'])]);
+        }
     }
 
     /**
@@ -31,6 +29,8 @@ class ShopifyRequest
      */
     public function getTemplateContent($templateKey)
     {
+        $this->themeId = $this->getActiveThemeId();
+
         $result = $this->client->request(
             'GET',
             sprintf('/admin/themes/%s/assets.json?asset[key]=%s', $this->themeId, $templateKey),
@@ -111,9 +111,10 @@ class ShopifyRequest
 
         );
 
-        file_put_contents('debug.txt', $result->getBody()->getContents(), 8);
 
 
+
+        return $result;
     }
 
 
@@ -151,6 +152,18 @@ class ShopifyRequest
                 ]
             ]
         );
+    }
+
+    public function setShopId($shopId)
+    {
+        $this->client = new Client(['base_uri' => ShopifyUtil::getShopUrl($shopId)]);
+    }
+
+    public function setAccessToken($accessToken)
+    {
+        $this->header = [
+            'X-Shopify-Access-Token' => $accessToken
+        ];
     }
 }
 
