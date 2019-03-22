@@ -110,10 +110,7 @@ class ShopifyRequest
             ]
 
         );
-
-
-
-
+        
         return $result;
     }
 

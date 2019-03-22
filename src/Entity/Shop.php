@@ -36,6 +36,16 @@ class Shop
      */
     private $config;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $installed_date;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +95,30 @@ class Shop
     public function setConfig(?string $config): self
     {
         $this->config = $config;
+
+        return $this;
+    }
+
+    public function getInstalledDate(): ?\DateTimeInterface
+    {
+        return $this->installed_date;
+    }
+
+    public function setInstalledDate(\DateTimeInterface $installed_date): self
+    {
+        $this->installed_date = $installed_date;
+
+        return $this;
+    }
+
+    public function getUpdatedDate(): ?\DateTimeInterface
+    {
+        return $this->updated_date;
+    }
+
+    public function setUpdatedDate(\DateTimeInterface $updated_date): self
+    {
+        $this->updated_date = $updated_date;
 
         return $this;
     }
