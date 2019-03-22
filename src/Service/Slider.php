@@ -46,11 +46,13 @@ class Slider
 
     }
 
-    public function removeScript($shopDomain)
+    public function uninstall($shopDomain)
     {
         $shop = $this->em->getRepository(Shop::class)->findOneBy(['shop_id' => $shopDomain]);
         $this->request->setAccessToken($shop->getAccessToken());
         $this->request->deleteScriptTag($shop->getScriptTagId());
+        $this->em->remove($shop);
+        $this->em->flush();
     }
 
     /**

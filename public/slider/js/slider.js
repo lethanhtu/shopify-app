@@ -18,5 +18,7 @@ $(document).ready(function(){
     ]
   });
 
+  alert(1);
+
   $('<link href="https://shopify-app-tule.herokuapp.com/slider/css/slider.css" rel="text/stylesheet"/>').append('body');
 });

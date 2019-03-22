@@ -63,14 +63,12 @@ class SliderController extends AbstractController
         if ($request->getMethod() == 'GET') {
             return $this->render('slider/config.html.twig');
         }
-
     }
 
     public function uninstall(Slider $slider, Request $request)
     {
         $shopDomain = $request->headers->get('X-Shopify-Shop-Domain');
-        $shop = $this->getDoctrine()->getRepository(ShopRepository::class)->findOneBy(['shop_id' => $shopDomain]);
-        $slider->removeScript($shop->getScriptTagId());
+        $slider->uninstall($shopDomain);
         return new Response('');
     }
 }
