@@ -21,16 +21,64 @@ class SliderController extends AbstractController
 {
 
     /**
-     * @return Response
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse|Response
      */
-    public function install()
+    public function install(Request $request, EntityManagerInterface $em)
     {
-        return $this->render('slider/config.html.twig', [
-            'apiKey' => getenv('API_KEY'),
-            'appUrl' => getenv('APP_URL'),
-            'scopes' => 'read_themes,write_themes,write_script_tags,read_products',
-            'shopOrigin' => ShopifyUtil::getShopUrl($_GET['shop'])
-        ]);
+        $dataMapping = [
+            'title' => '',
+            'filter_type' => '',
+            'slider' => [
+                'autoplay' => '',
+                'infinite' => '',
+                'arrows' => '',
+                'dots' => '',
+                'slidesToShow' => '',
+                'slidesToScroll' => '',
+                'speed' => ''
+            ]
+        ];
+
+        $shop = $em->getRepository(Shop::class)->findOneBy(['shop_id' => $request->get('shop')]);
+
+        $configuredData = empty($shop) || empty($shop->getConfig())? [] : json_decode($shop->getConfig(), true);
+
+        foreach ($dataMapping as $key => $value) {
+            if (is_scalar($value) && array_key_exists($key, $configuredData)) {
+                $dataMapping[$key] = $configuredData[$key];
+            } else if(is_array($value)) {
+                foreach($value as $childKey => $childValue) {
+                    if(array_key_exists($key, $configuredData) && array_key_exists($childKey, $configuredData[$key])) {
+                        $dataMapping[$key][$childKey] = $configuredData[$key][$childKey];
+                    }
+                }
+            }
+        }
+
+
+        if ($request->isMethod('GET')) {
+            return $this->render('slider/config.html.twig', [
+                'apiKey' => getenv('API_KEY'),
+                'appUrl' => getenv('APP_URL'),
+                'scopes' => 'read_themes,write_themes,write_script_tags,read_products',
+                'shopOrigin' => ShopifyUtil::getShopUrl($_GET['shop']),
+                'data' => $dataMapping
+            ]);
+        }
+
+        if (!ShopifyAuth::validateHMAC()) {
+            return new Response('Invalid hmac signature', 401);
+        }
+
+
+        $shop->setConfig(json_encode($_POST));
+        $em->persist($shop);
+        $em->flush();
+
+        return new RedirectResponse($request->headers->get('Referer'));
+
     }
 
     /**
@@ -55,7 +103,7 @@ class SliderController extends AbstractController
 
         $shop = $em->getRepository(Shop::class)->findOneBy(['shop_id' => $_GET['shop']]);
 
-        if(!$shop) {
+        if (!$shop) {
             $shop = new Shop();
             $shop->setInstalledDate(new \DateTime());
             $shop->setShopId($_GET['shop']);
@@ -113,14 +161,12 @@ class SliderController extends AbstractController
     {
         $shop = $em->getRepository(Shop::class)->findOneBy(['id' => $request->get('slider-id'), 'active' => 1]);
 
-        $jsResponse =  new Response('', 200, ['Content-Type' => 'application/javascript']);
+        $jsResponse = new Response('', 200, ['Content-Type' => 'application/javascript']);
 
 
-        if(!$shop) {
+        if (!$shop) {
             return $jsResponse;
         }
-
-
 
         return $this->render('slider/js_template.html.twig', [], $jsResponse);
     }
