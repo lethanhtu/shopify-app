@@ -46,6 +46,11 @@ class Shop
      */
     private $updated_date;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,18 @@ class Shop
     public function setUpdatedDate(\DateTimeInterface $updated_date): self
     {
         $this->updated_date = $updated_date;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

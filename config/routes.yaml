@@ -14,6 +14,12 @@ slider_uninstall:
   path: /slider/uninstall
   controller: App\Controller\SliderController::uninstall
 
+
+js_generate:
+  path: /slider/lib.js
+  controller: App\Controller\SliderController::generateJs
+
+
 customer_request:
   path: /customer/request
   controller: App\Controller\CustomerController::customerRequest

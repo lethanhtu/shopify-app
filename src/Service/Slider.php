@@ -31,27 +31,27 @@ class Slider
 
 
     /**
-     * @return mixed
+     * @param $sliderId
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function addScript()
+    public function addContent($sliderId)
     {
-        $response = $this->request->addScriptTag(sprintf('%s/slider/js/slider.js', getenv('APP_URL')));
-        $result = json_decode($response->getBody()->getContents(), true);
-        if(!isset($result['script_tag']) || !isset($result['script_tag']['id'])) {
-            throw new Exception('Script tag id is missed');
-        }
+        $indexContent = $this->request->getTemplateContent('templates/index.liquid');
+        $indexContent.= sprintf(
+            '<div id="shopmacher-slider" slider-id="%s"><script src="%s/slider/embbed.js"></script></div>',
+            $sliderId,
+            getenv('APP_URL')
+        );
 
-        return $result['script_tag']['id'];
-
+        $this->request->updateTemplateContent('templates/index.liquid', $indexContent);
     }
 
     public function uninstall($shopDomain)
     {
         $shop = $this->em->getRepository(Shop::class)->findOneBy(['shop_id' => $shopDomain]);
-        $this->request->setAccessToken($shop->getAccessToken());
-        $this->request->deleteScriptTag($shop->getScriptTagId());
-        $this->em->remove($shop);
+        $shop->setActive(0);
+        $shop->setUpdatedDate(new \DateTime());
+        $this->em->persist($shop);
         $this->em->flush();
     }
 

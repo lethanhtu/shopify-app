@@ -114,7 +114,10 @@ class ShopifyRequest
         return $result;
     }
 
-
+    /**
+     * @param $scriptTagId
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function deleteScriptTag($scriptTagId)
     {
         $this->client->request(
@@ -151,11 +154,18 @@ class ShopifyRequest
         );
     }
 
+
+    /**
+     * @param $shopId
+     */
     public function setShopId($shopId)
     {
         $this->client = new Client(['base_uri' => ShopifyUtil::getShopUrl($shopId)]);
     }
 
+    /**
+     * @param $accessToken
+     */
     public function setAccessToken($accessToken)
     {
         $this->header = [
