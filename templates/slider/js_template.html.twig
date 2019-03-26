@@ -1,0 +1,20 @@
+$('<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>').appendTo($('body'));
+$('<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer="defer"></script>').appendTo($('body'));
+
+if($('#shopmacher-slider-content').length > 0) {
+    $('.recommendation-items').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: false,
+        dots: true,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                infinite: false,
+                dots: true
+            }
+        }]
+    });
+}
