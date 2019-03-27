@@ -3,10 +3,12 @@ $('<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8
 
 if($('#shopmacher-slider-content').length > 0) {
     $('.recommendation-items').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        autoplay: false,
-        dots: true,
+        slidesToShow: {{ data.slider.slidesToShow is defined? data.slider.slidesToShow: 5}},
+        slidesToScroll: {{ data.slider.slidesToScroll is defined? data.slider.slidesToScroll: 1}},
+        autoplay: {{ data.slider.autoplay is defined? 'true': 'false'}},
+        dots: {{ data.slider.dots is defined? 'true': 'false'}},
+        infinite: {{ data.slider.infinite is defined? 'true': 'false'}},
+        arrows: {{ data.slider.arrows is defined? 'true': 'false'}},
         responsive: [{
             breakpoint: 768,
             settings: {

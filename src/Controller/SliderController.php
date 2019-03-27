@@ -157,7 +157,7 @@ class SliderController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function generateJs(Request $request, EntityManagerInterface $em)
+    public function generateTemplateJs(Request $request, EntityManagerInterface $em)
     {
         $shop = $em->getRepository(Shop::class)->findOneBy(['id' => $request->get('slider-id'), 'active' => 1]);
 
@@ -168,6 +168,20 @@ class SliderController extends AbstractController
             return $jsResponse;
         }
 
-        return $this->render('slider/js_template.html.twig', [], $jsResponse);
+        return $this->render('slider/js_template.html.twig', [
+            'data' => empty($shop->getConfig())? [] : json_decode($shop->getConfig(), true)
+        ], $jsResponse);
+    }
+
+    /**
+     * @return Response
+     */
+    public function generateEmbedJs()
+    {
+        return $this->render(
+            'slider/embed.html.twig',
+            ['app_url' => getenv('APP_URL')],
+            new Response('', 200, ['Content-Type' => 'application/javascript'])
+        );
     }
 }

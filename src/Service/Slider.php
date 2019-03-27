@@ -36,11 +36,9 @@ class Slider
      */
     public function addContent($sliderId)
     {
-
-        // Add embedded script
         $indexContent = $this->request->getTemplateContent('templates/index.liquid');
         $indexContent.= sprintf(
-            '<div id="shopmacher-slider" slider-id="%s"><script src="%s/slider/embbed.js"></script></div>',
+            '<div id="shopmacher-slider" slider-id="%s"><script src="%s/slider/embbed.js" defer></script></div>',
             $sliderId,
             getenv('APP_URL')
         );

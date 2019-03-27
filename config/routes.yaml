@@ -15,9 +15,13 @@ slider_uninstall:
   controller: App\Controller\SliderController::uninstall
 
 
-js_generate:
+js_template_generate:
   path: /slider/lib.js
-  controller: App\Controller\SliderController::generateJs
+  controller: App\Controller\SliderController::generateTemplateJs
+
+js_embed_generate:
+  path: /slider/embbed.js
+  controller: App\Controller\SliderController::generateEmbedJs
 
 
 customer_request:
@@ -31,3 +35,7 @@ customer_erasure:
 shop_request:
   path: /shop/request
   controller: App\Controller\CustomerController::shopRequest
+
+slider_test:
+  path: /slider/test
+  controller: App\Controller\SliderController::test
