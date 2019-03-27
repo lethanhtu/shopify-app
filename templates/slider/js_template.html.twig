@@ -1,5 +1,9 @@
 $('<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>').appendTo($('body'));
+
+
 $('<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer="defer"></script>').appendTo($('body'));
+
+$('<link rel="stylesheet" type="text/css" href="{{ app_url }}/slider/style.css"/>').appendTo($('body'));
 
 if($('#shopmacher-slider-content').length > 0) {
     $('#shopmacher-slider-content').css('display', 'block');
@@ -10,6 +14,7 @@ if($('#shopmacher-slider-content').length > 0) {
         dots: {{ data.slider.dots is defined? 'true': 'false'}},
         infinite: {{ data.slider.infinite is defined? 'true': 'false'}},
         arrows: {{ data.slider.arrows is defined? 'true': 'false'}},
+        speed: {{ data.slider.speed is defined? data.slider.speed: 2000 }},
         responsive: [{
             breakpoint: 768,
             settings: {

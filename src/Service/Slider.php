@@ -38,8 +38,8 @@ class Slider
     {
         $productContent = $this->request->getTemplateContent('templates/product.liquid');
         $productContent.='
-        {% comment %}
-  End  Product Shopmacher Slider
+{% comment %}
+  Open Shopmacher product slider script
 {% endcomment %}';
         $productContent.= sprintf(
             '
@@ -47,8 +47,15 @@ class Slider
             $sliderId,
             getenv('APP_URL')
         );
+$productContent.='
+{% comment %}
+  Close Shopmacher product slider script
+{% endcomment %}';
 
         $productContent.='
+{% comment %}
+  Open Shopmacher product slider
+{% endcomment %}
 <div id="shopmacher-slider-content" class="recommendation-items-block" style="display:none">
   <div class="page-width">
     <h2 class="heading">
@@ -80,7 +87,7 @@ class Slider
   </div>
 </div>
 {% comment %}
-  End  Product Shopmacher Slider
+  Close Shopmacher product slider
 {% endcomment %}';
 
         $this->request->updateTemplateContent('templates/product.liquid', $productContent);

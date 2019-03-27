@@ -125,17 +125,6 @@ class SliderController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     */
-    public function config(Request $request)
-    {
-        if ($request->getMethod() == 'GET') {
-            return $this->render('slider/config.html.twig');
-        }
-    }
-
-    /**
      * @param Slider $slider
      * @param Request $request
      * @return Response
@@ -169,7 +158,8 @@ class SliderController extends AbstractController
         }
 
         return $this->render('slider/js_template.html.twig', [
-            'data' => empty($shop->getConfig())? [] : json_decode($shop->getConfig(), true)
+            'data' => empty($shop->getConfig())? [] : json_decode($shop->getConfig(), true),
+            'app_url' => getenv('APP_URL')
         ], $jsResponse);
     }
 

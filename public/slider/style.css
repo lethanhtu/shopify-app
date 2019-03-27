@@ -72,3 +72,11 @@
 .recommendation-items .slick-next:before {
     content: "\2192";
 }
+.recommendation-items .slick-dots li button:before, .recommendation-items .slick-dots li a:before {
+    font-size:30px;
+    color: black;
+}
+.recommendation-items .slick-dots {
+    margin-top: 20px;
+}
+

@@ -6,10 +6,6 @@ slider_auth:
   path: /slider/auth
   controller: App\Controller\SliderController::auth
 
-slider_config:
-  path: /slider/config
-  controller: App\Controller\SliderController::config
-
 slider_uninstall:
   path: /slider/uninstall
   controller: App\Controller\SliderController::uninstall
