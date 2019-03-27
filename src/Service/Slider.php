@@ -37,10 +37,13 @@ class Slider
     public function addContent($sliderId)
     {
         $productContent = $this->request->getTemplateContent('templates/product.liquid');
+        $productContent.='
+        {% comment %}
+  End  Product Shopmacher Slider
+{% endcomment %}';
         $productContent.= sprintf(
-            '{% comment %}
-  Start  Product Shopmacher Slider
-{% endcomment %}<div id="shopmacher-slider" slider-id="%s"><script src="%s/slider/embed.js" defer></script></div>',
+            '
+<div id="shopmacher-slider" slider-id="%s"><script src="%s/slider/embed.js" defer></script></div>',
             $sliderId,
             getenv('APP_URL')
         );
