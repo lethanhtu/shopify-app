@@ -2,6 +2,7 @@ $('<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-car
 $('<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer="defer"></script>').appendTo($('body'));
 
 if($('#shopmacher-slider-content').length > 0) {
+    $('#shopmacher-slider-content').css('display', 'block');
     $('.recommendation-items').slick({
         slidesToShow: {{ data.slider.slidesToShow is defined? data.slider.slidesToShow: 5}},
         slidesToScroll: {{ data.slider.slidesToScroll is defined? data.slider.slidesToScroll: 1}},

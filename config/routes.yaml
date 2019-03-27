@@ -20,7 +20,7 @@ js_template_generate:
   controller: App\Controller\SliderController::generateTemplateJs
 
 js_embed_generate:
-  path: /slider/embbed.js
+  path: /slider/embed.js
   controller: App\Controller\SliderController::generateEmbedJs
 
 
@@ -35,7 +35,3 @@ customer_erasure:
 shop_request:
   path: /shop/request
   controller: App\Controller\CustomerController::shopRequest
-
-slider_test:
-  path: /slider/test
-  controller: App\Controller\SliderController::test
